@@ -58,6 +58,8 @@ class FormItem extends React.Component {
     } else if (getFieldValue(field) !== undefined) {
       return 'success';
     }
+
+    return '';
   }
 
   renderValidateWrapper(c1, c2, c3) {
@@ -129,10 +131,9 @@ class FormItem extends React.Component {
   renderChildren() {
     const props = this.props;
     const children = React.Children.map(props.children, (child) => {
-      if (typeof child.type === 'function' && !child.props.size) {
+      if (child && typeof child.type === 'function' && !child.props.size) {
         return React.cloneElement(child, { size: 'large' });
       }
-
       return child;
     });
     return [

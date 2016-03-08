@@ -51,12 +51,13 @@ class AntCascader extends React.Component {
     this.setState({ popupVisible: false });
   }
   render() {
-    const { prefixCls, children, placeholder, size, disabled, className } = this.props;
+    const { prefixCls, children, placeholder, size, disabled,
+            className, style, allowClear, ...otherProps } = this.props;
     const sizeCls = classNames({
       'ant-input-lg': size === 'large',
       'ant-input-sm': size === 'small',
     });
-    const clearIcon = this.state.value.length > 0 ?
+    const clearIcon = (allowClear && !disabled && this.state.value.length > 0) ?
       <Icon type="cross-circle"
         className={`${prefixCls}-picker-clear`}
         onClick={this.clearSelection} /> : null;
@@ -69,6 +70,10 @@ class AntCascader extends React.Component {
       [`${prefixCls}-picker`]: true,
       [`${prefixCls}-picker-disabled`]: disabled,
     });
+
+    // Fix bug of https://github.com/facebook/react/pull/5004
+    delete otherProps.onChange;
+
     return (
       <Cascader {...this.props}
         value={this.state.value}
@@ -77,9 +82,10 @@ class AntCascader extends React.Component {
         onChange={this.handleChange}>
         {children ||
           <span
-            {...this.props}
+            style={style}
             className={pickerCls}>
-            <Input placeholder={placeholder}
+            <Input {...otherProps}
+              placeholder={placeholder}
               className={`${prefixCls}-input ant-input ${sizeCls}`}
               style={{ width: '100%' }}
               value={this.getLabel()}
@@ -105,6 +111,7 @@ AntCascader.defaultProps = {
     return label.join(' / ');
   },
   disabled: false,
+  allowClear: true,
   onPopupVisibleChange() {},
 };
 

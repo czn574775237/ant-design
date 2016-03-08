@@ -61,15 +61,18 @@ const columns = [{
 | size          | 正常或迷你类型           | String          | `default` or `small`| default |
 | dataSource    | 数据数组                 | Array           |                     |         |
 | columns       | 表格列的配置描述，具体项见下表 | Array |                     |    无    |
-| rowKey        | 表格列 key 的取值 | Function(record, index):string |                     |    record.key    |
-| expandedRowRender  | 额外的列展开元素 | Function |                     | - |
-| defaultExpandedRowKeys | 默认展开的列 | Array |                     | - |
+| rowKey        | 表格行 key 的取值 | Function(record, index):string |                     |    record.key    |
+| expandedRowRender  | 额外的展开行 | Function |                     | - |
+| defaultExpandedRowKeys | 默认展开的行 | Array |                     | - |
 | onChange      | 分页、排序、筛选变化时触发 | Function(pagination, filters, sorter) |                     |       |
 | loading       | 页面是否加载中 | Boolean |                     | false      |
-| locale        | 设置排序、过滤按钮的文字或 `title` | Object         | | [默认值](https://github.com/ant-design/ant-design/issues/575#issuecomment-159169511) |
+| locale        | 默认文案设置，目前包括排序、过滤、空数据文案 | Object         | | `{ filterConfirm: '确定', filterReset: '重置', emptyText: '暂无数据' }` [默认值](https://github.com/ant-design/ant-design/issues/575#issuecomment-159169511) |
 | indentSize    | 展示树形数据时，每层缩进的宽度，以 px 为单位    | Number   |          | 15      |
 | onRowClick    | 处理行点击事件              | Function(record, index)   |              |     无     |
 | useFixedHeader  | 是否固定表头             | Boolean          |                   | false      |
+| bordered  | 是否展示外边框和列边框       | Boolean          |                   | false      |
+| showHeader  | 是否显示表头             | Boolean          |                   | true      |
+| footer  | 表格底部自定义渲染函数         | Function(currentPageData)   |        |       |
 
 ### Column
 
@@ -97,10 +100,10 @@ const columns = [{
 |------------------|--------------------------|-----------------|---------------------|---------|
 | type | 多选/单选，`checkbox` or `radio` | String | `checkbox`  |
 | selectedRowKeys | 指定选中项的 key 数组，需要和 onChange 进行配合 | Array | []  |
-| onChange | 选中项发生变化的时的回调，用户手动点选、换页、更新数据均会触发 | Function(selectedRowKeys) | -   |
+| onChange | 选中项发生变化的时的回调 | Function(selectedRowKeys, selectedRows) | -   |
 | getCheckboxProps | 选择框的默认属性配置        | Function(record) |  -   |
 | onSelect | 用户手动选择/取消选择某列的回调         | Function(record, selected, selectedRows) |   -   |
-| onSelectAll | 用户手动选择/取消选择所有列的回调    | Function(selected, selectedRows) |   -   |
+| onSelectAll | 用户手动选择/取消选择所有列的回调    | Function(selected, selectedRows, changeRows) |   -   |
 
 
 ## 注意
@@ -112,9 +115,6 @@ const columns = [{
 ![](https://os.alipayobjects.com/rmsportal/luLdLvhPOiRpyss.png)
 
 ```jsx
-const rowKey = function(record) {
-  return record.uid;  // 比如你的数据主键是 uid
-};
-
-return <Table rowKey={rowKey} />;
+// 比如你的数据主键是 uid
+return <Table rowKey={record => record.uid} />;
 ```

@@ -24,15 +24,24 @@ function insertSpace(child) {
   return child;
 }
 
+function clearButton(button) {
+  button.className = button.className.replace(`${prefix}clicked`, '');
+}
+
 export default class Button extends React.Component {
-  componentDidMount() {
-    if (window && window.PIE) {
-      window.PIE.attach(findDOMNode(this));
-    }
+  handleClick(...args) {
+    // Add click effect
+    const buttonNode = findDOMNode(this);
+    clearButton(buttonNode);
+    setTimeout(() => buttonNode.className += ` ${prefix}clicked`, 10);
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => clearButton(buttonNode), 500);
+
+    this.props.onClick(...args);
   }
   render() {
     const props = this.props;
-    const { type, shape, size, onClick, className, htmlType, children, ...others } = props;
+    const { type, shape, size, className, htmlType, children, ...others } = props;
 
     // large => lg
     // small => sm
@@ -47,13 +56,16 @@ export default class Button extends React.Component {
       [prefix + shape]: shape,
       [prefix + sizeCls]: sizeCls,
       [`${prefix}loading`]: ('loading' in props && props.loading !== false),
-      [className]: className
+      [className]: className,
     });
 
     const kids = React.Children.map(children, insertSpace);
 
     return (
-      <button {...others} type={htmlType || 'button'} className={classes} onClick={onClick}>
+      <button {...others}
+        type={htmlType || 'button'}
+        className={classes}
+        onClick={this.handleClick.bind(this)}>
         {kids}
       </button>
     );

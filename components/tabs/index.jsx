@@ -29,27 +29,26 @@ class AntTabs extends React.Component {
     let { prefixCls, size, tabPosition, animation, type,
           children, tabBarExtraContent } = this.props;
     let className = classNames({
-      [this.props.className]: !!this. props.className,
+      [this.props.className]: !!this.props.className,
       [`${prefixCls}-mini`]: size === 'small' || size === 'mini',
       [`${prefixCls}-vertical`]: tabPosition === 'left' || tabPosition === 'right',
       [`${prefixCls}-card`]: type.indexOf('card') >= 0,
+      [`${prefixCls}-${type}`]: true,
     });
     if (tabPosition === 'left' || tabPosition === 'right' || type.indexOf('card') >= 0) {
       animation = null;
     }
     // only card type tabs can be added and closed
     if (type === 'editable-card') {
-      if (children.length > 1) {
-        children = children.map((child, index) => {
-          return cloneElement(child, {
-            tab: <div>
-              {child.props.tab}
-              <Icon type="cross" onClick={this.removeTab.bind(this, child.key)} />
-            </div>,
-            key: child.key || index,
-          });
+      children = children.map((child, index) => {
+        return cloneElement(child, {
+          tab: <div>
+            {child.props.tab}
+            <Icon type="cross" onClick={this.removeTab.bind(this, child.key)} />
+          </div>,
+          key: child.key || index,
         });
-      }
+      });
       // Add new tab handler
       tabBarExtraContent = (
         <span>
@@ -58,16 +57,15 @@ class AntTabs extends React.Component {
         </span>
       );
     }
-    // Wrap the extra content
-    tabBarExtraContent = (
-      <div className={`${prefixCls}-extra-content`}>
-        {tabBarExtraContent}
-      </div>
-    );
+
     return (
       <Tabs {...this.props}
         className={className}
-        tabBarExtraContent={tabBarExtraContent}
+        tabBarExtraContent={
+          <div className={`${prefixCls}-extra-content`}>
+            {tabBarExtraContent}
+          </div>
+        }
         onChange={this.handleChange}
         animation={animation}>
         {children}

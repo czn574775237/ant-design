@@ -16,6 +16,8 @@ window.ReactDOM = ReactDOM;
 window['object-assign'] = require('object-assign');
 window['classnames'] = require('classnames');
 window['reqwest'] = require('reqwest');
+window['jsonp'] = require('jsonp');
+window['querystring'] = require('querystring');
 window['Values'] = require('values.js');
 window['InstantClick'] = require('instantclick');
 require('./home')();
@@ -375,8 +377,17 @@ InstantClickChangeFns.push(function() {
     prevNextNavNode.appendTo('.main-container');
   }
 
+  var navMenu = $('.nav');
   $('.nav-phone-icon').click(function() {
-    $(this).prev().toggle();
+    navMenu.removeClass('nav-hide').addClass('nav-show');
+  });
+
+  $('body').on('click', function (e) {
+    if (e.target !== $('.nav-phone-icon')[0] &&
+        !navMenu[0].contains(e.target) &&
+        navMenu.hasClass('nav-show')) {
+      navMenu.removeClass('nav-show').addClass('nav-hide');
+    }
   });
 
   $.easing['jswing'] = $.easing['swing'];

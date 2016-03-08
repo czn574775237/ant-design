@@ -23,7 +23,7 @@ class Transfer extends Component {
   splitDataSource() {
     const { targetKeys, dataSource } = this.props;
 
-    let leftDataSource = Object.assign([], dataSource);
+    let leftDataSource = [...dataSource];
     let rightDataSource = [];
 
     if (targetKeys.length > 0) {
@@ -33,6 +33,7 @@ class Transfer extends Component {
             leftDataSource.splice(index, 1);
             return true;
           }
+          return false;
         })[0]);
       });
     }
@@ -146,7 +147,7 @@ class Transfer extends Component {
 
   render() {
     const {
-      prefixCls, titles, operations, showSearch,
+      prefixCls, titles, operations, showSearch, notFoundContent,
       searchPlaceholder, body, footer, listStyle, className,
     } = this.props;
     const { leftFilter, rightFilter, leftCheckedKeys, rightCheckedKeys } = this.state;
@@ -179,16 +180,17 @@ class Transfer extends Component {
           render={this.props.render}
           showSearch={showSearch}
           searchPlaceholder={searchPlaceholder}
+          notFoundContent={notFoundContent}
           body={body}
           footer={footer}
-          prefixCls={`${prefixCls}-list`}/>
+          prefixCls={`${prefixCls}-list`} />
         <Operation rightActive={rightActive}
           rightArrowText={operations[0]}
           moveToRight={this.moveTo.bind(this, 'right')}
           leftActive={leftActive}
           leftArrowText={operations[1]}
           moveToLeft={this.moveTo.bind(this, 'left')}
-          className={`${prefixCls}-operation`}/>
+          className={`${prefixCls}-operation`} />
         <List titleText={titles[1]}
           dataSource={rightDataSource}
           filter={rightFilter}
@@ -203,9 +205,10 @@ class Transfer extends Component {
           render={this.props.render}
           showSearch={showSearch}
           searchPlaceholder={searchPlaceholder}
+          notFoundContent={notFoundContent}
           body={body}
           footer={footer}
-          prefixCls={`${prefixCls}-list`}/>
+          prefixCls={`${prefixCls}-list`} />
       </div>
     );
   }
@@ -221,6 +224,7 @@ Transfer.defaultProps = {
   operations: [],
   showSearch: false,
   searchPlaceholder: '请输入搜索内容',
+  notFoundContent: 'Not Found',
   body: noop,
   footer: noop,
 };
@@ -238,6 +242,7 @@ Transfer.propTypes = {
   operations: PropTypes.array,
   showSearch: PropTypes.bool,
   searchPlaceholder: PropTypes.string,
+  notFoundContent: PropTypes.node,
   body: PropTypes.func,
   footer: PropTypes.func,
 };

@@ -4,6 +4,67 @@
 
 ---
 
+## 0.12.8
+
+`2016-03-06`
+
+- 新增 `heart` `calculator` 图标。
+- Table 补充了 `showHeader` 和 `footer` 属性。
+- Modal 补充了 `maskClosable` 属性。
+- 修正一个 Tag 和 Popover 配合使用的问题。[#1111](https://github.com/ant-design/ant-design/issues/1111)
+- 将 TreeSelect 的 `treeDefaultExpandAll` 默认属性设为 false，并优化了性能。
+- 修复 RadioGroup 无法垂直布局的问题。[#1119](https://github.com/ant-design/ant-design/issues/1119)
+- 统一了 less 文件的部分变量。
+- 修正部分组件的样式。
+
+## 0.12.7
+
+`2016-03-03`
+
+- 修正 Table 的 `rowSelect.onSelectAll` 的第三个参数 `deselectedRows` 为 `changeRows`，记录每次变化的列。
+
+## 0.12.6
+
+`2016-03-02`
+
+- 优化 Table 本地排序在 Chrome 下的稳定性问题。
+- 修正 Pagination 的 pageSize 属性为受控属性，并补充了 `defaultPageSize` 属性。[#1087](https://github.com/ant-design/ant-design/issues/1087)
+- 优化 Select 的 combobox 模式的交互体验。
+- 升级 react-slick 依赖到 `0.11`，修复自动播放有时会失效的问题。[#1009](https://github.com/ant-design/ant-design/issues/1009)
+- 修复 TreeSelect 的 allowClear 属性失效的问题。[#1084](https://github.com/ant-design/ant-design/issues/1084)
+- 修复 Input 组件的 className 属性失效的问题。[#1103](https://github.com/ant-design/ant-design/issues/1103)
+- 修复 Dropdown 的 onClick 属性失效的问题。[#1097](https://github.com/ant-design/ant-design/issues/1097)
+- 修复多个 CheckboxGroup 选项互相影响的问题。[#1101](https://github.com/ant-design/ant-design/pull/1101)
+- 修复 FormItem 的子元素为 `null` 时报错的问题。
+- 修复 Table 组件的选择功能和展开功能配合使用的问题。[#1102](https://github.com/ant-design/ant-design/issues/1102)
+- 增加了一个搜索框和提示功能结合的 [例子](http://ant.design/components/select/#demo-search-box)。
+- 允许可编辑的 Tabs 删除最后一个页签。[#1071](https://github.com/ant-design/ant-design/issues/1071)
+- Table 的 `rowSelect.onSelectAll` 补充了第三个参数 `deselectedRows`, `rowSelect.onChange` 补充了第二个参数 `selectedRows`。[#1105](https://github.com/ant-design/ant-design/issues/1105)
+- 修正部分组件的样式。
+
+## 0.12.5
+
+`2016-02-25`
+
+- Pagination 支持 `showTotal` 属性。[#1077](https://github.com/ant-design/ant-design/pull/1077)
+- Cascader 添加 `allowClear` 属性，允许隐藏清除按钮。
+- 补充了一个带图标的搜索建议框的例子。[#1067](https://github.com/ant-design/ant-design/issues/1067)
+- 修复 Transfer 在不支持 Object.assign 的浏览器上报错的问题。
+- 修复 Cascader 在 Safari 下错位的问题。[#1066](https://github.com/ant-design/ant-design/issues/1066)
+- 移除对 Button 圆角的降级方案。
+- 修复了部分组件样式的小问题。
+
+## 0.12.4
+
+`2016-02-22`
+
+- Radio 的 value 支持更多类型。[#1043](https://github.com/ant-design/ant-design/pull/1043)
+- 修复 Spin 组件的大小、居中等样式问题。
+- FormItem 补充 extra 属性的文档。[#931](https://github.com/ant-design/ant-design/issues/931)
+- 修复的 Table 下树形数据和选择框配合时的样式问题。
+- 修复一个水平表单的错误提示的样式错位问题。[#1040](https://github.com/ant-design/ant-design/issues/1040)
+- 添加了一个轻微的 Button 点击动效。
+
 ## 0.12.3
 
 `2016-02-19`
